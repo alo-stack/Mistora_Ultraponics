@@ -4,6 +4,8 @@ export default function TrendChart({data=[]}){
   const w = 600, h = 120, pad = 8
   const max = Math.max(...data, 1)
   const min = Math.min(...data, 0)
+  const startValue = data[0] ?? 0
+  const endValue = data[data.length - 1] ?? 0
   const points = data.map((v,i) => {
     const x = pad + (i/(Math.max(1,data.length-1))) * (w - pad*2)
     const y = pad + (1 - (v - min)/(max - min || 1)) * (h - pad*2)
@@ -11,16 +13,16 @@ export default function TrendChart({data=[]}){
   }).join(' ')
 
   return (
-    <div className="rounded-3xl border border-slate-200/80 bg-white/85 p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900/80">
-      <div className="mb-5 flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Sensor trend</p>
-          <p className="font-display text-lg font-bold text-slate-900 dark:text-white">Stable over the last intervals</p>
+    <div className="dashboard-card-soft p-4 sm:p-5">
+      <div className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <p className="surface-label">Sensor trend</p>
+          <p className="surface-title text-lg font-bold sm:text-xl">Stable over the last intervals</p>
         </div>
         <div className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-300">Live</div>
       </div>
 
-      <svg viewBox={`0 0 ${w} ${h}`} width="100%" height="160" preserveAspectRatio="none" className="block">
+      <svg viewBox={`0 0 ${w} ${h}`} width="100%" height="160" preserveAspectRatio="none" className="block h-40 sm:h-44" role="img" aria-label="Trend line chart showing recent sensor values">
         <defs>
           <linearGradient id="mistoraChartLine" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#06b6d4" />
@@ -38,6 +40,12 @@ export default function TrendChart({data=[]}){
         />
         <polyline fill="none" stroke="url(#mistoraChartLine)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" points={points} />
       </svg>
+
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <span>Start: {startValue}</span>
+        <span>Range: {min} - {max}</span>
+        <span>Now: {endValue}</span>
+      </div>
     </div>
   )
 }
