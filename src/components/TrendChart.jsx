@@ -1,6 +1,12 @@
 import React from 'react'
 
-export default function TrendChart({data=[]}){
+export default function TrendChart({
+  label = 'Sensor trend',
+  title = 'Stable over the last intervals',
+  status = 'Live',
+  statusClass = 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  data = []
+}){
   const w = 600, h = 120, pad = 8
   const max = Math.max(...data, 1)
   const min = Math.min(...data, 0)
@@ -16,13 +22,15 @@ export default function TrendChart({data=[]}){
     <div className="dashboard-card-soft p-4 sm:p-5">
       <div className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
-          <p className="surface-label">Sensor trend</p>
-          <p className="surface-title text-lg font-bold sm:text-xl">Stable over the last intervals</p>
+          <p className="surface-label">{label}</p>
+          <p className="surface-title text-lg font-bold sm:text-xl">{title}</p>
         </div>
-        <div className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-300">Live</div>
+        <div className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${statusClass}`}>
+          {status}
+        </div>
       </div>
 
-      <svg viewBox={`0 0 ${w} ${h}`} width="100%" height="160" preserveAspectRatio="none" className="block h-40 sm:h-44" role="img" aria-label="Trend line chart showing recent sensor values">
+      <svg viewBox={`0 0 ${w} ${h}`} width="100%" height="160" preserveAspectRatio="none" className="block h-40 sm:h-44" role="img" aria-label={`Trend line chart showing recent ${label.toLowerCase()} values`}>
         <defs>
           <linearGradient id="mistoraChartLine" x1="0" x2="1" y1="0" y2="0">
             <stop offset="0%" stopColor="#06b6d4" />
