@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow public read/write only for the single thresholds document
+    // Move thresholds to a dedicated `settings/thresholds` document.
+    match /settings/thresholds {
+      allow read, write: if true;
+    }
+
+    // Allow reads for sensor readings and permit device writes to sensor documents
+    // Thresholds is already explicitly allowed above.
+    match /sensor_readings/{docId} {
+      allow read: if true;
+      allow write: if true; // allow ESP32 devices to write readings without auth
+    }
+
+    // Allow dashboard to record and read operational activity logs.
+    match /activity_logs/{docId} {
+      allow read, write: if true;
+    }
+
+    // Fallback: deny everything else by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

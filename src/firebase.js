@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, signInAnonymously } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
@@ -17,5 +17,11 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 const storage = getStorage(app)
+
+// Try anonymous sign-in so client writes are permitted when anonymous
+// authentication is enabled in the Firebase console. This is safe for
+// non-sensitive applications or dev environments; enable anonymous
+// sign-in under Firebase Console > Authentication > Sign-in method.
+signInAnonymously(auth).catch(() => {})
 
 export { app, auth, db, storage }

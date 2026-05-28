@@ -10,11 +10,7 @@ const sampleSensors = [
 
 export default function Overview(){
   const [sensors] = useState(sampleSensors)
-  const metrics = [
-    { label: 'Target range', value: '22-28°C', detail: 'Comfortable and stable' },
-    { label: 'Air stability', value: '92%', detail: 'Above threshold' },
-    { label: 'Auto cycles', value: '18 today', detail: '2 scheduled soon' },
-  ]
+  
 
   return (
     <section className="space-y-5 lg:space-y-6">
@@ -24,15 +20,7 @@ export default function Overview(){
         subtitle="Key environment metrics at a glance — auto‑refreshing cards."
       />
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-        {metrics.map((metric) => (
-          <div key={metric.label} className="dashboard-card-soft px-4 py-4 sm:px-5">
-            <p className="surface-label">{metric.label}</p>
-            <p className="surface-title mt-2 text-xl font-bold tracking-tight sm:text-2xl">{metric.value}</p>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{metric.detail}</p>
-          </div>
-        ))}
-      </div>
+      {/* Metric overview removed per request */}
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {sensors.map((sensor) => (
