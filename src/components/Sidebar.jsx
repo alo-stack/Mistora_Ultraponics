@@ -33,7 +33,7 @@ export default function Sidebar({ isOpen, onClose }){
           { to: '/overview', label: 'Overview' },
           { to: '/trends', label: 'Trends' },
           { to: '/controls', label: 'Controls' },
-          { to: '/logs', label: 'Logs' },
+          { to: '/about', label: 'About' },
         ].map((item) => (
           <NavLink
             key={item.to}

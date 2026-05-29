@@ -5,7 +5,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Overview from './pages/Overview'
 import Trends from './pages/Trends'
 import Controls from './pages/Controls'
-import Logs from './pages/Logs'
+import About from './pages/About'
 
 export default function App(){
   const location = useLocation()
@@ -60,7 +60,7 @@ export default function App(){
             <Route path="/overview" element={<Overview/>} />
             <Route path="/trends" element={<Trends/>} />
             <Route path="/controls" element={<Controls/>} />
-            <Route path="/logs" element={<Logs/>} />
+            <Route path="/about" element={<About/>} />
           </Routes>
         </main>
       </div>
