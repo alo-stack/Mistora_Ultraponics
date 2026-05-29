@@ -12,7 +12,6 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
 
   return (
     <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5">
-      <div className={`mb-4 h-1 rounded-full bg-gradient-to-r ${accentClass} opacity-85 motion-safe:transition-transform motion-safe:duration-300 group-hover:scale-x-[1.015]`} />
 
       <div className="flex items-start justify-between gap-4">
         <div>
