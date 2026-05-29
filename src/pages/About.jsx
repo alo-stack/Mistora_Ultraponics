@@ -2,15 +2,15 @@ import React from 'react'
 import PageHeader from '../components/PageHeader'
 
 const teamMembers = [
-  { name: 'Your Name', role: 'Project Lead', focus: 'System concept, interface direction, and final integration.' },
-  { name: 'Member 02', role: 'Hardware Lead', focus: 'Sensor wiring, device reliability, and ESP32 coordination.' },
-  { name: 'Member 03', role: 'UI Designer', focus: 'Layout refinement, visual hierarchy, and screen polish.' },
-  { name: 'Member 04', role: 'Firmware Developer', focus: 'Embedded logic, control routines, and sensor updates.' },
-  { name: 'Member 05', role: 'Data Analyst', focus: 'Trend interpretation, thresholds, and summary reporting.' },
-  { name: 'Member 06', role: 'Backend Support', focus: 'Firestore structure, persistence, and app data flow.' },
-  { name: 'Member 07', role: 'Documentation', focus: 'Project write-up, presentation support, and references.' },
-  { name: 'Member 08', role: 'Quality Assurance', focus: 'Testing, validation, and edge-case review.' },
-  { name: 'Member 09', role: 'Research & Support', focus: 'Background study, proposal framing, and demo preparation.' },
+  { name: 'Baladad, Kier Nino', role: 'Software Development', focus: 'System concept, interface direction, and final integration.' },
+  { name: 'Bubos, Cefren Pao', role: 'Prototype Development', focus: 'Embedded logic, control routines, and sensor updates.' },
+  { name: 'Codilan, Ralph Lorenz', role: 'Technical and Documentation', focus: 'Embedded logic, control routines, and sensor updates.' },
+  { name: 'Corcino, Daniel Justine', role: 'Technical and Documentation', focus: 'Sensor wiring, device reliability, and ESP32 coordination.' },
+  { name: 'De Mesa, Charisse Anne', role: 'Prototype Development', focus: 'Layout refinement, visual hierarchy, and screen polish.' },
+  { name: 'Gerona, Geonell', role: 'Prototype Development', focus: 'Trend interpretation, thresholds, and summary reporting.' },
+  { name: 'Lagrimas, Angelo', role: 'Software Development', focus: 'Firestore structure, persistence, and app data flow.' },
+  { name: 'Lazona, John Karlo', role: 'Prototype Development', focus: 'Project write-up, presentation support, and references.' },
+  { name: 'Navea, Carl Timothy', role: 'Prototype Development', focus: 'Background study, proposal framing, and demo preparation.' },
 ]
 
 function PhotoPlaceholder({ label, accent }){
@@ -79,7 +79,6 @@ export default function About(){
                 <div className="flex flex-col justify-center">
                   <p className="surface-label">{member.role}</p>
                   <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900 dark:text-white">{member.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{member.focus}</p>
                 </div>
               </div>
             </article>
