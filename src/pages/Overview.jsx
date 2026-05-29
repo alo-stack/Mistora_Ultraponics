@@ -66,7 +66,7 @@ export default function Overview(){
           <SensorCard key={sensor.id} {...sensor} />
         ))}
 
-        <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5">
+        <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5 xl:col-span-3">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="surface-label transition group-hover:text-slate-700 dark:group-hover:text-slate-200">Latest activity</p>

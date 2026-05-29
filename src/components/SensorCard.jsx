@@ -8,6 +8,8 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
     : pct < 33
       ? 'from-cyan-500 to-sky-500'
       : 'from-emerald-500 to-teal-500'
+  const textColor = pct > 66 ? 'text-amber-500' : pct < 33 ? 'text-cyan-500' : 'text-emerald-500'
+  const textColorDark = pct > 66 ? 'dark:text-amber-200' : pct < 33 ? 'dark:text-cyan-200' : 'dark:text-emerald-200'
   const statusText = trend === 'High' ? 'Above target' : trend === 'Low' ? 'Below target' : 'Within target'
 
   return (
@@ -22,7 +24,7 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
           </div>
         </div>
 
-        <span className={`shrink-0 rounded-full border border-white/70 bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur dark:border-slate-700/70 dark:bg-slate-950/60 dark:text-slate-200`}>
+        <span className={`shrink-0 rounded-full border border-white/70 bg-white/80 px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur ${textColor} ${textColorDark}`}>
           {trend}
         </span>
       </div>
