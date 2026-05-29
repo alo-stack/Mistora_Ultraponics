@@ -66,6 +66,8 @@ export default function Overview(){
           <SensorCard key={sensor.id} {...sensor} />
         ))}
 
+        {/* Parameter guide moved into individual sensor cards */}
+
         <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5 xl:col-span-3">
           <div className="flex items-start justify-between gap-4">
             <div>

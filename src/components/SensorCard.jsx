@@ -11,6 +11,25 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
   const textColor = pct > 66 ? 'text-amber-500' : pct < 33 ? 'text-cyan-500' : 'text-emerald-500'
   const textColorDark = pct > 66 ? 'dark:text-amber-200' : pct < 33 ? 'dark:text-cyan-200' : 'dark:text-emerald-200'
   const statusText = trend === 'High' ? 'Above target' : trend === 'Low' ? 'Below target' : 'Within target'
+  const statusKey = trend === 'High' ? 'Above' : trend === 'Low' ? 'Below' : 'Within'
+  const guides = {
+    Temperature: {
+      Below: 'Too cold: Slow growth, poor uptake',
+      Within: 'Optimal: Good O₂, healthy roots',
+      Above: 'Too warm: Root rot, low O₂',
+    },
+    Humidity: {
+      Below: 'Too dry: Roots desiccate fast',
+      Within: 'Optimal: Moist, active roots',
+      Above: 'Too humid: Mold, bacterial growth',
+    },
+    EC: {
+      Below: 'Too dilute: Deficiency, pale leaves',
+      Within: 'Optimal: Balanced nutrients',
+      Above: 'Too strong: Nutrient burn, stress',
+    },
+  }
+  const guideText = (guides[label] && guides[label][statusKey]) || ''
 
   return (
     <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5">
@@ -40,6 +59,11 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
           <span>{statusText}</span>
           <span>{min} - {max}</span>
         </div>
+        {guideText ? (
+          <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <span className="text-sm font-normal">{guideText}</span>
+          </div>
+        ) : null}
       </div>
     </article>
   )
