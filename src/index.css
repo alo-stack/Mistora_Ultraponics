@@ -74,6 +74,10 @@
     @apply dashboard-surface motion-safe:transition-[transform,box-shadow,border-color,background-color] motion-safe:duration-300 motion-safe:ease-out motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.32)] dark:motion-safe:hover:shadow-[0_22px_48px_-30px_rgba(0,0,0,0.5)];
   }
 
+  .dashboard-chip {
+    @apply inline-flex max-w-full items-center justify-center rounded-full border border-slate-200/80 bg-white/85 px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur transition-colors dark:border-slate-700/70 dark:bg-slate-950/60 dark:shadow-none;
+  }
+
   .dashboard-card-soft {
     @apply dashboard-surface border-slate-200/60 bg-white/60 shadow-[0_12px_32px_-26px_rgba(15,23,42,0.22)] dark:border-slate-800/60 dark:bg-slate-900/45 dark:shadow-[0_12px_32px_-26px_rgba(0,0,0,0.42)];
   }

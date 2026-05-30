@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function ControlPanel({isAuto, onToggleAutoMode, onManualMist}){
+  const mistResetTimerRef = useRef(null)
+  const [isMistRequested, setIsMistRequested] = useState(false)
   const modeLabel = isAuto ? 'Automation is active' : 'Manual control is active'
   const modeDetail = isAuto
     ? 'The system will balance mist output using the calibrated threshold ranges.'
     : 'Manual overrides will take priority until automation is re-enabled.'
+
+  useEffect(() => {
+    return () => {
+      if (mistResetTimerRef.current) {
+        clearTimeout(mistResetTimerRef.current)
+      }
+    }
+  }, [])
+
+  const handleManualMist = () => {
+    setIsMistRequested(true)
+    onManualMist()
+
+    if (mistResetTimerRef.current) {
+      clearTimeout(mistResetTimerRef.current)
+    }
+
+    mistResetTimerRef.current = setTimeout(() => {
+      setIsMistRequested(false)
+    }, 15000)
+  }
 
   return (
     <div className="grid gap-3 lg:grid-cols-2">
@@ -48,11 +71,23 @@ export default function ControlPanel({isAuto, onToggleAutoMode, onManualMist}){
 
           <button
             type="button"
-            onClick={onManualMist}
-            className="inline-flex w-full items-center justify-center rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-18px_rgba(6,182,212,0.95)] transition motion-safe:hover:-translate-y-0.5 hover:bg-cyan-400 sm:w-auto sm:px-5"
+            onClick={handleManualMist}
+            aria-pressed={isMistRequested}
+            disabled={isMistRequested}
+            className={[
+              'inline-flex w-full items-center justify-center rounded-2xl px-4 py-3 text-sm font-semibold transition motion-safe:hover:-translate-y-0.5 sm:w-auto sm:px-5',
+              isMistRequested
+                ? 'cursor-not-allowed border border-amber-300 bg-amber-100 text-amber-900 shadow-[0_14px_30px_-18px_rgba(245,158,11,0.22)] dark:border-amber-500/30 dark:bg-amber-500/15 dark:text-amber-100'
+                : 'bg-cyan-500 text-white shadow-[0_14px_30px_-18px_rgba(6,182,212,0.95)] hover:bg-cyan-400',
+            ].join(' ')}
           >
-            Mist now
+            {isMistRequested ? 'Mist cycle requested' : 'Mist now'}
           </button>
+
+          <div className={`inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${isMistRequested ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100' : 'border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-400'}`}>
+            <span className={`h-2 w-2 rounded-full ${isMistRequested ? 'bg-amber-500' : 'bg-slate-400'}`} />
+            {isMistRequested ? 'Mist running' : 'Ready to mist'}
+          </div>
         </div>
 
         <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">

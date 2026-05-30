@@ -34,16 +34,16 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
   return (
     <article className="dashboard-card group rounded-2xl p-4 backdrop-blur sm:p-5">
 
-      <div className="flex items-start justify-between gap-4">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0">
           <p className="surface-label transition group-hover:text-slate-700 dark:group-hover:text-slate-200">{label}</p>
-          <div className="mt-3 flex items-end gap-2">
-            <span className="surface-title text-2xl font-bold tracking-tight sm:text-3xl">{value}</span>
-            <span className="pb-1 text-sm font-medium text-slate-500 dark:text-slate-400 sm:text-[0.95rem]">{unit}</span>
+          <div className="mt-2 flex flex-wrap items-end gap-x-2 gap-y-1 sm:mt-3">
+            <span className="surface-title text-[1.75rem] font-bold tracking-tight leading-none sm:text-3xl">{value}</span>
+            <span className="pb-0.5 text-sm font-medium text-slate-500 dark:text-slate-400 sm:pb-1 sm:text-[0.95rem]">{unit}</span>
           </div>
         </div>
 
-        <span className={`shrink-0 rounded-full border border-white/70 bg-white/80 px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur ${textColor} ${textColorDark}`}>
+        <span className={`dashboard-chip shrink-0 self-start ${textColor} ${textColorDark}`}>
           {trend}
         </span>
       </div>
@@ -55,12 +55,12 @@ export default function SensorCard({label, value, unit, min=0, max=100}){
             style={{ width: `${pct}%` }}
           />
         </div>
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex flex-col gap-1 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <span>{statusText}</span>
           <span>{min} - {max}</span>
         </div>
         {guideText ? (
-          <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <div className="mt-2 rounded-2xl border border-slate-200/70 bg-slate-50/80 px-3 py-2 text-sm text-slate-600 dark:border-slate-800/70 dark:bg-slate-950/35 dark:text-slate-300">
             <span className="text-sm font-normal">{guideText}</span>
           </div>
         ) : null}

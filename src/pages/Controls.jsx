@@ -1,24 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import ControlPanel from '../components/ControlPanel'
 import ThresholdCard from '../components/ThresholdCard'
 import PageHeader from '../components/PageHeader'
-import { db } from '../firebase'
 import { createThresholdChangeLog, writeActivityLog } from '../lib/activityLog'
-
-const defaultThresholds = {
-  temp: { min: '24', max: '28' },
-  humidity: { min: '65', max: '80' },
-  ec: { min: '1.4', max: '2.0' },
-}
-
-const thresholdsDocRef = doc(db, 'settings', 'thresholds')
-
-const cloneThresholds = (thresholdSet) => ({
-  temp: { ...thresholdSet.temp },
-  humidity: { ...thresholdSet.humidity },
-  ec: { ...thresholdSet.ec },
-})
+import { cloneThresholds, defaultThresholds, normalizeThresholds, thresholdsDocRef } from '../lib/thresholds'
 
 export default function Controls(){
   const [isAuto, setIsAuto] = useState(true)
@@ -41,28 +27,10 @@ export default function Controls(){
         }
 
         if (snapshot.exists()) {
-          const data = snapshot.data()
-          const storedThresholds = data.thresholds
+          const nextThresholds = normalizeThresholds(snapshot.data().thresholds)
 
-          if (storedThresholds) {
-            const nextThresholds = {
-              temp: {
-                min: String(storedThresholds.temp?.min ?? defaultThresholds.temp.min),
-                max: String(storedThresholds.temp?.max ?? defaultThresholds.temp.max),
-              },
-              humidity: {
-                min: String(storedThresholds.humidity?.min ?? defaultThresholds.humidity.min),
-                max: String(storedThresholds.humidity?.max ?? defaultThresholds.humidity.max),
-              },
-              ec: {
-                min: String(storedThresholds.ec?.min ?? defaultThresholds.ec.min),
-                max: String(storedThresholds.ec?.max ?? defaultThresholds.ec.max),
-              },
-            }
-
-            setThresholds(nextThresholds)
-            setSavedThresholds(cloneThresholds(nextThresholds))
-          }
+          setThresholds(nextThresholds)
+          setSavedThresholds(cloneThresholds(nextThresholds))
         } else {
           await setDoc(thresholdsDocRef, {
             thresholds: defaultThresholds,
@@ -163,9 +131,9 @@ export default function Controls(){
       type: 'mist_cycle',
       severity: 'warning',
       title: 'Manual mist cycle',
-      detail: 'Operator triggered a 30-second mist cycle from the control panel.',
+      detail: 'Operator triggered a 15-second mist cycle from the control panel.',
       metadata: {
-        durationSeconds: 30,
+        durationSeconds: 15,
         modeAtTrigger: isAuto ? 'auto' : 'manual',
       },
     }).catch(() => {})
